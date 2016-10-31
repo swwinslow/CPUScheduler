@@ -47,12 +47,19 @@ public class main {
 			
 		}while(exitCode.equals("Y"));
 		
+		
+		//todo figure out how many object we need.
 		for (int i = 0; i < ID.length; i++){
 			System.out.println(ID[i]);
 			System.out.println(bursts[i]);
 
 		}
 		
+		RoundRobin x = new RoundRobin(quantum, ID, bursts);
+		String results ="";
+		results = x.compute();
+		System.out.println("this is from the main class:" + results);
+	
 		
 	
 		
