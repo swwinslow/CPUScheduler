@@ -55,10 +55,29 @@ public class main {
 
 		}
 		
+		
+		
+		//Round Robin
 		RoundRobin x = new RoundRobin(quantum, ID, bursts);
 		String results ="";
 		results = x.compute();
 		System.out.println("this is from the main class:" + results);
+		
+		//Shortest Job First
+		ShortestJobFirst a = new ShortestJobFirst( ID, bursts);
+
+		results = a.compute();
+		System.out.println("this is from the main class:" + results);
+		
+		//FCFS
+		FirstInFirstServed b = new FirstInFirstServed( ID, bursts);
+
+		results = b.compute();
+		System.out.println("this is from the main class:" + results);
+		
+		
+		
+		
 	
 		
 	
