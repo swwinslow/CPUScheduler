@@ -28,12 +28,12 @@ public class RR {
 	ArrayList<Integer> jobBurst = new ArrayList<Integer>();
 
 	
-	int quantum = 4;
-	public void compute(ArrayList<RR> rr){
+
+	
+	public void compute(ArrayList<RR> rr, int quantum){
 
 		boolean value = true;
-		boolean second = false;
-		ArrayList<Integer> lost = new ArrayList<Integer>();
+		ArrayList<Integer> throwAway = new ArrayList<Integer>();
 		
 		while(value == true){
 			int count = rr.size();
@@ -51,7 +51,7 @@ public class RR {
 					int remaining = bursts;
 					jobSequence.add(id);
 					jobBurst.add(remaining);
-					lost.add(x.id);
+					throwAway.add(x.id);
 
 				}else{
 					int remaining = bursts - quantum;
@@ -61,14 +61,15 @@ public class RR {
 				}
 			}
 			
-			for (int i = 0; i < lost.size(); i++){
+			for (int i = 0; i < throwAway.size(); i++){
 				
 				for (int t = 0; t < rr.size(); t++){
-					if (rr.get(t).id == lost.get(i)){
+					if (rr.get(t).id == throwAway.get(i)){
 						System.out.println("we have hit the same ids");
 						rr.remove(t);
 						if(rr.size() == 0){
 							value = false;
+							break;
 						}
 					}
 				}

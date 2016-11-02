@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class main {
@@ -38,40 +39,20 @@ public class main {
 			
 			ArrayList<Integer> ID = new ArrayList<Integer>();
 			ArrayList<Integer> bursts = new ArrayList<Integer>();
-			ArrayList<RR> rr = new ArrayList<RR>();
-			
+			ArrayList<RR> roundRobinArrayList = new ArrayList<RR>();
+			ArrayList<ShortestJobFirst> sjfArrayList = new ArrayList<ShortestJobFirst>();
 
+
+			int count = -1;
+
+			
+			
 			
 			String exitCode = "Y";
-			int count = -1;
-			
-			Boolean x = false;
-			
-			do{
-				count++;
-				System.out.print("Please enter the job ID: " );
-				int jobID = Integer.parseInt(in.nextLine());
-				ID.add(jobID);
-				
-				System.out.print("Please enter the burst time for Job #" + jobID);
-				int jobBurst = Integer.parseInt(in.nextLine());
-				bursts.add(jobBurst);
-								
-				System.out.print("To Enter Another Job: Y | To Exit: N");
-				exitCode = in.nextLine();
-				
-			}while(exitCode.equals("Y"));
-			
-			
-			
 
 			
 			
-			System.out.println("The jobs you've entered along with their burst times:");
-			for (int i = 0; i < rr.size() + 1; i++){
-				System.out.print("Job" + ID.get(i) + ", ");
-				System.out.println(bursts.get(i));
-			}
+			
 			
 			
 			
@@ -79,16 +60,13 @@ public class main {
 			if(scheduler.equals("1")){
 				
 				do{
-//					count++;
 					System.out.print("Please enter the job ID: " );
 					int jobID = Integer.parseInt(in.nextLine());
-//					ID.add(jobID);
 					
 					System.out.print("Please enter the burst time for Job #" + jobID);
 					int jobBurst = Integer.parseInt(in.nextLine());
-//					bursts.add(jobBurst);
 					
-					rr.add(new RR(jobID, jobBurst));
+					roundRobinArrayList.add(new RR(jobID, jobBurst));
 					
 					
 					System.out.print("To Enter Another Job: Y | To Exit: N");
@@ -97,10 +75,28 @@ public class main {
 				}while(exitCode.equals("Y"));
 				
 				RR data = new RR();
-				data.compute(rr);
+				data.compute(roundRobinArrayList, quantum);
 				
 				
 			}else if (scheduler.equals("2")){
+				
+				Boolean x = false;
+				
+				do{
+					count++;
+					System.out.print("Please enter the job ID: " );
+					int jobID = Integer.parseInt(in.nextLine());
+					ID.add(jobID);
+					
+					System.out.print("Please enter the burst time for Job #" + jobID);
+					int jobBurst = Integer.parseInt(in.nextLine());
+					bursts.add(jobBurst);
+									
+					System.out.print("To Enter Another Job: Y | To Exit: N");
+					exitCode = in.nextLine();
+					
+				}while(exitCode.equals("Y"));
+								
 				//FCFS
 				FirstInFirstServed b = new FirstInFirstServed( ID, bursts);
 				ArrayList<Integer> results;
@@ -111,13 +107,70 @@ public class main {
 				}
 				
 			}else{
+				
+				Boolean x = false;
+				
+				do{
+					count++;
+					System.out.print("Please enter the job ID: " );
+					int jobID = Integer.parseInt(in.nextLine());
+//					ID.add(jobID);
+					
+					System.out.print("Please enter the burst time for Job #" + jobID);
+					int jobBurst = Integer.parseInt(in.nextLine());
+//					bursts.add(jobBurst);
+									
+			
+					sjfArrayList.add(0, new ShortestJobFirst(jobID, jobBurst));
+
+					
+					
+					
+//					for (int p = 0; p < sjfArrayList.size(); p++){
+//						
+//						for (int j = 1; j <  sjfArrayList.size(); j++){
+//							if (sjfArrayList.get(p).getBurst() > sjfArrayList.get(j).getBurst()){
+//								Collections.swap(sjfArrayList, p, j);
+//							} else {
+//								
+//							}
+//								
+//						}
+//					}
+					
+					for (int j = 0; j <  sjfArrayList.size() -1; j++){
+						if (sjfArrayList.get(j).getBurst() > sjfArrayList.get(j+1).getBurst()){
+							Collections.swap(sjfArrayList, j, j+1);
+						} else {
+							
+						}
+							
+					}
+					
+					System.out.println("Shortest Job First so far:");	
+					for (int i=0; i<sjfArrayList.size(); i++){
+						System.out.println(sjfArrayList.get(i).getID());
+					}
+					
+					System.out.print("To Enter Another Job: Y | To Exit: N");
+					exitCode = in.nextLine();
+					
+//					sjfArrayList.add(new ShortestJobFirst(jobID, jobBurst));
+					x = true;
+
+					
+				}while(exitCode.equals("Y"));
+				
 				//Shortest Job First
-				ShortestJobFirst a = new ShortestJobFirst( ID, bursts);
-				ArrayList<Integer> results;
-				results = a.compute();
-				System.out.println("Shortest Job First Results:" + results);	
-				for (int i=0; i<results.size(); i++){
-					System.out.println(results.get(i));
+				
+				
+				
+				
+				
+				
+				System.out.println("Shortest Job First Results:");	
+				for (int i=0; i<sjfArrayList.size(); i++){
+					System.out.println(sjfArrayList.get(i).getID());
 				}
 			}
 
