@@ -25,23 +25,23 @@ public class RoundRobin {
 		
 		while(value == true){
 			int count = id.size();
-			System.out.println(count);
-			for(int i=0; i< count; i++){
-				System.out.println(i);
+			System.out.println("This is the value of count: " + count);
+			for(int i=0; i < count; i++){
+				System.out.println("This is the value of i " + i);
 				int ID = id.get(i);
 				int bursts = burst.get(i);
-				System.out.println("This is the job " + i + "burst size" + bursts);
+				System.out.println("This is the job " + id.get(i) + " burst size " + bursts);
 				
 				if(bursts <= quantum){
 					int remaining = bursts;
 					jobSequence.add(ID);
 					jobBurst.add(remaining);
 					lost.add(i);
-					System.out.println("This is the size:  " + id.size());
-					if(id.size() == 0){
-						value = false;
-						break;
-					}
+					System.out.println("This is the index for the removal " + i);
+//					if(id.size() == 0){
+//						value = false;
+//						break;
+//					}
 				}else{
 					int remaining = bursts - quantum;
 					jobSequence.add(ID);
@@ -54,16 +54,24 @@ public class RoundRobin {
 			} else{
 				second = true;
 			}
-			for (int i = 0; i < lost.size(); i++){
-				id.remove(lost.get(i));
-				burst.remove(lost.get(i));
-				System.out.println("we are removing" + lost.get(i));
-				if (id.size() == 0){
-					System.out.println("WE ARE DONNNNNEEEE");
+			for (int i = 0; i < 3; i++){
+				System.out.println("this is the i " + lost.get(i));
+				System.out.println("this is element " + id.get(lost.get(i)));
+				System.out.println("this is burst " + burst.get(lost.get(i)));
+
+
+				id.remove(i);
+				burst.remove(i);
 				
-					value = false;
-					break;
-				}
+//				System.out.println("we are removing" + lost.get(i));
+			
+			}
+			System.out.println("This is the size of ID " + id.size());
+			if (id.size() == 0){
+				System.out.println("WE ARE DONNNNNEEEE");
+			
+				value = false;
+				break;
 			}
 		}
 		
