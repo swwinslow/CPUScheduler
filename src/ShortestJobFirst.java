@@ -2,10 +2,6 @@ import java.util.ArrayList;
 
 public class ShortestJobFirst {
 	
-		
-		private ArrayList<Integer> jobInfo = new ArrayList<Integer>();
-
-
 		private int id;
 		private int burst;
 		

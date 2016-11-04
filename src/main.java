@@ -60,8 +60,30 @@ public class main {
 			if(scheduler.equals("1")){
 				
 				do{
+					boolean checkValue = false;
 					System.out.print("Please enter the job ID: " );
 					int jobID = Integer.parseInt(in.nextLine());
+					
+					for (int i = 0; i < roundRobinArrayList.size(); i++){
+						if (jobID == roundRobinArrayList.get(i).getID()){
+							checkValue = true;
+							break;
+						}
+					}
+					while (checkValue == true){
+						System.out.println("Job#" + jobID + " has already been used. Please Try again:");
+						System.out.print("Please enter the job ID: " );
+						 jobID = Integer.parseInt(in.nextLine());
+						 
+						 for (int i = 0; i < roundRobinArrayList.size(); i++){
+								if (jobID == roundRobinArrayList.get(i).getID()){
+									checkValue = true;
+									break;
+								}
+								checkValue = false;
+							}
+					}
+					
 					
 					System.out.print("Please enter the burst time for Job #" + jobID);
 					int jobBurst = Integer.parseInt(in.nextLine());
@@ -90,8 +112,6 @@ public class main {
 
 						int burstsRR = x.getburstTime();
 					
-				
-						
 						if(burstsRR <= quantum){
 							int remaining = burstsRR;
 							jobSequence.add(id);
@@ -110,7 +130,6 @@ public class main {
 						
 						for (int t = 0; t < roundRobinArrayList.size(); t++){
 							if (roundRobinArrayList.get(t).getID() == throwAway.get(i)){
-								System.out.println("we have hit the same ids");
 								roundRobinArrayList.remove(t);
 								if(roundRobinArrayList.size() == 0){
 									value = false;
@@ -135,10 +154,33 @@ public class main {
 				Boolean x = false;
 				
 				do{
+					boolean checkValue = false;
 					count++;
 					System.out.print("Please enter the job ID: " );
 					int jobID = Integer.parseInt(in.nextLine());
+					
+					for (int i = 0; i < ID.size(); i++){
+						if (jobID == ID.get(i)){
+							checkValue = true;
+							break;
+						}
+					}
+					while (checkValue == true){
+						System.out.println("Job#" + jobID + " has already been used. Please Try again:");
+						System.out.print("Please enter the job ID: " );
+						 jobID = Integer.parseInt(in.nextLine());
+						 
+						 for (int i = 0; i < ID.size(); i++){
+								if (jobID == ID.get(i)){
+									checkValue = true;
+									break;
+								}
+								checkValue = false;
+							}
+					}
+					
 					ID.add(jobID);
+
 					
 					System.out.print("Please enter the burst time for Job #" + jobID);
 					int jobBurst = Integer.parseInt(in.nextLine());
@@ -157,7 +199,7 @@ public class main {
 				int waitingTime = 0;
 				ArrayList<Integer> jobInfo = new ArrayList<Integer>();
 
-				for(int i=0; i<count; i++){
+				for(int i=0; i<countFCFS; i++){
 					jobInfo.add(ID.get(i));
 					jobInfo.add(bursts.get(i));
 					if(i==0){
@@ -174,8 +216,10 @@ public class main {
 					totalBurstTime += bursts.get(i);
 				}
 				
-				for (int i = 1; i < jobInfo.size(); i = i + 3){
-					System.out.println("Job# " + jobInfo.get(i-1) + " | Burst Time: " + jobInfo.get(i) + " | Wait Time: " + jobInfo.get(i+1));
+				System.out.println("Order: ");
+				
+				for (int i = 1; i < jobInfo.size() + 1; i = i + 3){
+					System.out.println("Job# " + jobInfo.get(i-1) + " | Wait Time: " + jobInfo.get(i + 1) + " | Burst Time: " + jobInfo.get(i));
 				}
 				
 			}else{
@@ -187,6 +231,29 @@ public class main {
 					count++;
 					System.out.print("Please enter the job ID: " );
 					int jobID = Integer.parseInt(in.nextLine());
+					
+					boolean checkValue = false;
+					for (int i = 0; i < sjfArrayList.size(); i++){
+						if (jobID == sjfArrayList.get(i).getID()){
+							checkValue = true;
+							break;
+						}
+					}
+					while (checkValue == true){
+						System.out.println("Job#" + jobID + " has already been used. Please Try again:");
+						System.out.print("Please enter the job ID: " );
+						 jobID = Integer.parseInt(in.nextLine());
+						 
+						 for (int i = 0; i < sjfArrayList.size(); i++){
+								if (jobID == sjfArrayList.get(i).getID()){
+									checkValue = true;
+									break;
+								}
+								checkValue = false;
+							}
+					}
+					
+					
 					
 					System.out.print("Please enter the burst time for Job #" + jobID);
 					int jobBurst = Integer.parseInt(in.nextLine());
@@ -202,10 +269,7 @@ public class main {
 							
 					}
 					
-					System.out.println("Shortest Job First so far:");	
-					for (int i=0; i<sjfArrayList.size(); i++){
-						System.out.println(sjfArrayList.get(i).getID());
-					}
+				
 					
 					System.out.print("To Enter Another Job: Y | To Exit: N");
 					exitCode = in.nextLine();
