@@ -280,7 +280,6 @@ public class main {
 				}while(exitCode.equals("Y"));
 
 				//COMPUTE
-				
 				int countSJF = sjfArrayList.size();
 				int waitingTime = 0;
 				ArrayList<Integer> jobInfo = new ArrayList<Integer>();
@@ -305,15 +304,8 @@ public class main {
 						jobInfo.add(waitingTime);
 					}
 				}
-				
-//				//not being printed right now
-//				int totalBurstTime = 0;
-//				for (int i = 0; i < ID.size(); i++){
-//					totalBurstTime += bursts.get(i);
-//				}
-				
+			
 				//results
-
 				for (int i = 1; i < jobInfo.size(); i = i + 3){
 					System.out.println("Job# " + jobInfo.get(i-1) + " | Burst Time: " + jobInfo.get(i) + " | Wait Time: " + jobInfo.get(i+1));
 				}
